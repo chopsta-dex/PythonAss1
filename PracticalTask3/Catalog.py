@@ -50,6 +50,8 @@ def add_book(new_book):
     close_button.pack()
     popup.mainloop()
 
+
+
 def show_catalog():
     global catalog
     popup = tk.Tk()
@@ -69,14 +71,17 @@ def show_catalog():
         catalog.sort(key=lambda x: x.price)
         popup_text = ""
         for item in catalog:
-            popup_text += f"ISBN: {item.isbn}\n"
-            popup_text += f"Title: {item.title}\n"
-            popup_text += f"Author: {item.author}\n"
-            popup_text += f"Price: ${item.price:.2f}\n"
-            popup_text += "\n"
+            popup_text += item.display()
 
         popup.title("Book Catalog")
         label = tk.Label(text=popup_text)
         label.pack()
         close_button.pack()
     popup.mainloop()
+
+def search():
+    global catalog
+    search_value = simpledialog.askstring("Book Catalog", "What book are you looking for?\n\nEnter your search term(s) here:")
+    for item in catalog:
+        if item.title__contains__(search_value):
+            

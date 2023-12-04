@@ -9,7 +9,10 @@ class Book:
         self.price = price
     
     def display(self):
-        print(f"ISBN: {self.isbn}")
-        print(f"Title: {self.title}")
-        print(f"Author: {self.author}")
-        print(f"Price: ${self.price}")
+        my_book = ""
+        my_book += f"ISBN: {self.isbn}\n"
+        my_book += f"Title: {self.title}\n"
+        my_book += f"Author: {self.author}\n"
+        my_book += f"Price: ${self.price:.2f}\n"
+        my_book += "\n"
+        return my_book
