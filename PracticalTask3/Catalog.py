@@ -82,6 +82,24 @@ def show_catalog():
 def search():
     global catalog
     search_value = simpledialog.askstring("Book Catalog", "What book are you looking for?\n\nEnter your search term(s) here:")
+    popup_title = "Search results:"
+    popup_text = ""
     for item in catalog:
-        if item.title__contains__(search_value):
-            
+        if search_value in item.title:
+            popup_text += item.display()
+    if popup_text == "":
+        popup_title = "No books found."
+    
+    popup = tk.Tk()
+    label = tk.Label(text=popup_text)
+    title = tk.Label(text=popup_title)
+    def close_popup():
+        popup.destroy()
+    close_button = tk.Button(popup, text="Okay", command=close_popup)
+    title.pack()
+    label.pack()
+    close_button.pack()
+    popup.mainloop()
+
+startup()
+search()
