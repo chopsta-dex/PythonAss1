@@ -38,6 +38,17 @@ def startup():
 def add_book(new_book):
     global catalog
     catalog.append(new_book)
+    popup = tk.Tk()
+    label = tk.Label("Book successfully added")
+
+    def close_popup():
+        popup.destroy()
+
+    close_button = tk.Button(popup, text="Okay", command=close_popup)
+
+    label.pack()
+    close_button.pack()
+    popup.mainloop()
 
 def show_catalog():
     global catalog
@@ -69,7 +80,3 @@ def show_catalog():
         label.pack()
         close_button.pack()
     popup.mainloop()
-
-startup()
-
-show_catalog()
