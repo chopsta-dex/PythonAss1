@@ -5,9 +5,6 @@ from Book import Book
 import tkinter as tk
 from tkinter import simpledialog
 
-application_window = tk.Tk()
-application_window.withdraw()
-
 catalog = []
 
 def main_menu():
@@ -44,17 +41,34 @@ def add_book(new_book):
 
 def show_catalog():
     global catalog
+    popup = tk.Tk()
+
+    def close_popup():
+        popup.destroy()
+
+    close_button = tk.Button(popup, text="Okay", command=close_popup)
+
     if catalog == []:
-        popup = tk.Tk()
         popup.title("Book Catalog")
         label = tk.Label(text="There are no books in the catalog")
         label.pack()
+        close_button.pack()
+        popup.mainloop()
     else:
         catalog.sort(key=lambda x: x.price)
-        popup = tk.Tk()
+        popup_text = ""
+        for item in catalog:
+            popup_text += f"ISBN: {item.isbn}\n"
+            popup_text += f"Title: {item.title}\n"
+            popup_text += f"Author: {item.author}\n"
+            popup_text += f"Price: ${item.price:.2f}\n"
+            popup_text += "\n"
+
         popup.title("Book Catalog")
-        label = tk.Label(text=catalog)
+        label = tk.Label(text=popup_text)
         label.pack()
+        close_button.pack()
+    popup.mainloop()
 
 startup()
 
