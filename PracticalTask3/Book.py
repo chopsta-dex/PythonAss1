@@ -8,6 +8,7 @@ class Book:
         self.author = author
         self.price = price
     
+    # This function returns a string ready for display
     def display(self):
         my_book = ""
         my_book += f"ISBN: {self.isbn}\n"

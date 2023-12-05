@@ -2,12 +2,18 @@
 
 from Book import Book
 
+from functools import partial
+
 import tkinter as tk
 from tkinter import simpledialog
+from tkinter import messagebox
 
 catalog = []
+exit_all = False
+selection = None
 
 def main_menu():
+    global selection
     selection = simpledialog.askinteger("Book Catalog", "-- Holmesglen Book Store --\n\n" +
                             "1. Add a book\n" +
                             "2. Sort and display books by price\n" +
@@ -33,13 +39,12 @@ def startup():
     catalog.append(book1)
     catalog.append(book2)
 
-    main_menu()
-
 def add_book(new_book):
     global catalog
     catalog.append(new_book)
     popup = tk.Tk()
-    label = tk.Label("Book successfully added")
+    popup_text = "Book successfully added"
+    label = tk.Label(text=popup_text)
 
     def close_popup():
         popup.destroy()
@@ -49,8 +54,6 @@ def add_book(new_book):
     label.pack()
     close_button.pack()
     popup.mainloop()
-
-
 
 def show_catalog():
     global catalog
@@ -101,5 +104,71 @@ def search():
     close_button.pack()
     popup.mainloop()
 
+
+def delete_book():
+    global catalog
+    found = False
+
+    del_isbn = simpledialog.askstring("Book Catalog", "Enter the ISBN of the book you would like to delete:")
+
+    for item in catalog:
+        if del_isbn == item.isbn:
+            found = True
+            book_string = item.display()
+            book_string += "Are you sure you want to delete this book?"
+            answer = messagebox.askyesno("Book Catalog", book_string)
+            if answer:
+                catalog.remove(item)
+                messagebox.showinfo("Book Catalog", "Book has been deleted")
+            else:
+                messagebox.showinfo("Book Catalog", "Book has not been deleted")
+            
+            break
+    if not found:
+        messagebox.showinfo("Book Catalog", "No such book was found")
+
+def display_all():
+    global catalog
+    if catalog == []:
+        messagebox.showinfo
+    else:
+        popup = tk.Tk()
+        popup_text = ""
+        for item in catalog:
+            popup_text += item.display()
+
+        popup.title("Book Catalog")
+        label = tk.Label(text=popup_text)
+        label.pack()
+        close_button = tk.Button(popup, text="Okay", command=popup.destroy)
+        close_button.pack()
+        popup.mainloop()
+
+def exit_program():
+    global exit_all
+    exit_all = True
+
+
+# Here is the program
 startup()
-search()
+while not exit_all:
+    main_menu()
+    if selection == 1:
+        add_book(ask_for_book())
+        continue
+    elif selection == 2:
+        show_catalog()
+        continue
+    elif selection == 3:
+        search()
+        continue
+    elif selection == 4:
+        delete_book()
+        continue
+    elif selection == 5:
+        display_all()
+        continue
+    elif selection == 6:
+        exit_program()
+
+messagebox.showinfo("Book Catalog", "The program will now exit")
