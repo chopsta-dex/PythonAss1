@@ -1,0 +1,8 @@
+/CoverSheetAss1LB.docx
+/PracticalTask1.7z
+/PracticalTask2/Ass1Prac2 Flowchart.drawio
+/PracticalTask2/Ass1Prac2 Flowchart.jpg
+/PracticalTask2/Employees.tct
+/PracticalTask2/employeesCSV.csv
+/PracticalTask2/Pseudocode.docx
+/PracticalTask2/PatrollTeport.txt
